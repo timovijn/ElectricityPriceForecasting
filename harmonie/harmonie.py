@@ -26,8 +26,6 @@ mpl.rcParams['axes.titleweight'] = 'semibold'
 mpl.rcParams['axes.labelweight'] = 'medium'
 mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color=[hex_indigo, hex_salmon, hex_maroon])
 
-import pygrib
-
 # os.chdir("./nordpool")
 
 import numpy as np
