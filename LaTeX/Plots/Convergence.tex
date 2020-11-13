@@ -1,0 +1,39 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=100mm,
+height=30mm,
+at={(0.686in,0.436in)},
+scale only axis,
+xmin=0,
+xmax=0.025,
+xlabel={Element size (\si{\metre})},
+ymin=-0.1,
+ymax=0.5,
+ylabel={RE},
+axis background/.style={fill=none,draw=MaterialGrey500},
+xlabel style={font=\color{white!15!black}},
+ylabel style={font=\color{white!15!black}},
+legend style={legend cell align=left, align=left, fill=none,draw=none,font=\color{MaterialGrey500}\footnotesize},
+legend pos = north west,
+]
+\addplot [color=MaterialGrey900, line width = .2mm, mark = *]
+  table[row sep=crcr]{%
+0.005 3.9924369E-4\\%9.9960075631E-1\\
+0.010 3.9793926E-4\\%9.9960206074E-1\\
+0.015 4.029065E-4\\%9.995970935E-1\\
+0.020 3.7033058688E-1\\%6.2966941312E-1\\
+};
+
+\end{axis}
+\end{tikzpicture}%
+\caption{Relative error of numerical solution to reference (analytical) solution for varying element sizes\\Source: \textsc{matlab}}
+\label{Fig:Convergence}

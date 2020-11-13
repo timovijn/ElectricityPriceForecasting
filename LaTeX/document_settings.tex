@@ -1,0 +1,139 @@
+\documentclass[10pt]{article}
+
+\usepackage{sansmathfonts}
+%\usepackage[scaled=0.86]{beramono} % for code listings
+\usepackage{helvet}
+\renewcommand{\rmdefault}{\sfdefault}
+
+% \usepackage[T1]{fontenc}
+% \usepackage[math]{blindtext}
+% \usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xcolor-material}
+\usepackage{setspace}
+\usepackage{sectsty}
+\usepackage{ragged2e}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{lastpage}
+\usepackage[font={small,color=MaterialGrey500}]{caption}\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{tikz}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=30mm,
+ right=30mm,
+ top=30mm,
+ bottom=30mm
+ }
+
+\captionsetup{justification=centering,singlelinecheck=false}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{arrows.meta}
+\usepgfplotslibrary{patchplots}
+\usepackage{grffile}
+
+\pgfplotsset{every axis/.append style={
+                    label style={font=\tiny},
+                    }}
+                    
+\AtBeginDocument{\sisetup{math-rm=\mathrm, text-rm=\rmfamily}}
+
+\input{siunitx.tex}
+
+\pgfplotsset{
+    axis line style={MaterialGrey500},
+    every axis label/.append style ={MaterialGrey500},
+    every tick label/.append style={MaterialGrey500}
+  }
+
+\setlength\parindent{0pt}
+\setlength\parskip{2.5mm}
+
+\AtBeginDocument{
+\addtolength{\abovedisplayskip}{2mm}
+\addtolength{\abovedisplayshortskip}{2mm}
+\addtolength{\belowdisplayskip}{2mm}
+\addtolength{\belowdisplayshortskip}{2mm}
+}
+
+\color{MaterialGrey900}
+\pagecolor{white}
+
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\baselinestretch}{1.5}
+
+\makeatletter
+\let\reftagform@=\tagform@
+\def\tagform@#1{\maketag@@@{\ignorespaces\textcolor{MaterialGrey500}{(#1)}\unskip\@@italiccorr}}
+\renewcommand{\eqref}[1]{\textup{\reftagform@{\ref{#1}}}}
+\makeatother
+
+\newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
+
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\newtoggle{section}\togglefalse{section}% "In section" toggle
+\newtoggle{atstarttoc}% "First entry in ToC" toggle
+\newcounter{tocsubsection}% Keep track of first subsection
+\makeatletter
+
+\titlespacing\section{0mm}{12pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+\newcounter{subeq}
+\renewcommand{\thesubeq}{\theequation\alph{subeq}}
+\newcommand{\newsubeqblock}{\setcounter{subeq}{0}\refstepcounter{equation}}
+\newcommand{\mysubeq}{\refstepcounter{subeq}\tag{\thesubeq}}
+
+\title{Solving the One-Dimensional Wave Equation}
+\author{Timo Vijn}
+\date{September 21\textsuperscript{st} 2017 -- September 22\textsuperscript{nd} 2017}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=MaterialGrey900,
+    filecolor=MaterialGrey900,
+    linkcolor=MaterialGrey900,
+    urlcolor=MaterialGrey900
+}
+
+\usetikzlibrary{shapes.misc}
+
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\usepackage{listings}
+
+\usepackage{lscape}
+
+\usepackage{fontspec}
+% \setmainfont{[Fonts/MaisonNeue/MaisonNeue-Book.otf]}
+
+\setmainfont [ Path = Fonts/MaisonNeue/ ] {MaisonNeue-Book.otf}
+\setsansfont [ Path = Fonts/SF/ ] {SF-Compact-Text-Regular.otf}
+
+% \setmainfont[
+%  BoldFont={Minion Pro Bold}, 
+%  ItalicFont={Minion Pro Italic},
+%  BoldItalicFont={Minion Pro Bold Italic}
+%  ]{Linux Libertine O}
+ 
+ \setsansfont % load font from path
+    [
+        Path = Fonts/SF/,
+        % Extension = .otf,
+        UprightFont =       SF-Compact-Text-Regular.otf,
+        BoldFont =          SF-Compact-Text-Medium.otf,
+        ItalicFont =        SF-Compact-Text-RegularItalic.otf,
+        BoldItalicFont =    SF-Compact-Text-MediumItalic.otf,
+    ]
+    {SF}

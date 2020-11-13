@@ -1,0 +1,71 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+\definecolor{mycolor4}{rgb}{0.49400,0.18400,0.55600}%
+\definecolor{mycolor5}{rgb}{0.46600,0.67400,0.18800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=100mm,
+height=40mm,
+at={(1.011in,0.642in)},
+scale only axis,
+xmin=0,
+xmax=1,
+xlabel style={font=\color{white!15!black}},
+xlabel={Strain $\epsilon$},
+ymin=0,
+ymax=1,
+ylabel style={font=\color{white!15!black}},
+ylabel={Stress $\sigma$},
+axis background/.style={fill=none,draw=MaterialGrey500},
+legend style={legend cell align=left, align=left, fill=none,draw=none,font=\color{MaterialGrey500}\footnotesize},
+legend pos = north west,
+%xtick={1},
+%xticklabels={$\epsilon_{max}$},
+%ytick={1},
+%yticklabels={$E_{ref}*\epsilon_{max}$},
+]
+\addplot [color=MaterialGrey900, line width = .2mm]
+  table[row sep=crcr]{%
+0	0\\
+0.1	0.1\\
+0.2	0.2\\
+0.3	0.3\\
+0.4	0.4\\
+0.5	0.5\\
+0.6	0.6\\
+0.7	0.7\\
+0.8	0.8\\
+0.9	0.9\\
+1	1\\
+};
+\addlegendentry{$\bar{E}_A=1$}
+
+\addplot [color=MaterialGrey900, line width = .2mm, dashed]
+  table[row sep=crcr]{%
+0	0\\
+0.1	0.025\\
+0.2	0.05\\
+0.3	0.075\\
+0.4	0.1\\
+0.5	0.125\\
+0.6	0.15\\
+0.7	0.175\\
+0.8	0.2\\
+0.9	0.225\\
+1	0.25\\
+};
+\addlegendentry{$\bar{E}_B=0.25\bar{E}_A$}
+
+\end{axis}
+\end{tikzpicture}%
+
+\caption{Elastic moduli as the slope between the strain and stress for the materials to the left and right of the interface\\Source: \textsc{matlab}}

@@ -1,0 +1,129 @@
+\begin{subequations}
+Before reaching the interface, the incident wave travels in the positive direction of the bar (where the wave speed is $c_L$). The reflected wave also travels along that part of the bar, but in negative direction. The displacement field to the left of the interface (for $x<L$) can thus be written as a sum of the displacements induced by the incident and reflected waves:
+
+    \begin{align}
+    u_L&=p(\xi_L)+g(\eta_L)
+    \\[1em]
+    &=p\left(t-\frac{x}{c_L}\right)+g\left(t+\frac{x}{c_L}\right)
+    \end{align}
+\label{eq:incident_reflected}
+\end{subequations}
+
+\begin{subequations}
+While the displacement field to the right of the interface can be written as function of the transmitted wave only:
+    \begin{align}
+    u_R&=h(\xi_R)
+    \\[1em]
+    &=h\left(t-\frac{x}{c_R}\right)
+    \end{align}
+\label{eq:transmitted}
+\end{subequations}
+
+Where, as before, $\xi$ indicates a forward (right) moving, and $\eta$ indicates a backward (left) moving wave.
+
+\begin{subequations}
+At the bonded interface, for any $t$, we find an equal displacement left and right, and thus an equal stress:
+    \begin{gather}
+    u_L(L,t)=u_R(L,t)
+    \\[1em]
+    \sigma_L(L,t)=\sigma_R(L,t)
+    \end{gather}
+\end{subequations}
+
+From Equation \ref{eq:strain_from_displacement} and \ref{eq:stress_from_strain}, we find that:
+\begin{equation}
+    \rho_L c_L^2 \frac{\partial{u_L}}{\partial{x}}(L,t)=\rho_R c_R^2 \frac{\partial{u_R}}{\partial{x}}(L,t)
+\end{equation}
+
+So it must hold that:
+\begin{equation}
+    f(t) + g(t) = h(t)
+\end{equation}
+
+Also, the value for $\delta u/\delta x$ should be equal for Equations \ref{eq:incident_reflected} and \ref{eq:transmitted} for any $t$:
+\begin{subequations}
+\begin{gather}
+    \frac{df(t-x/c_L)}{d(t-x/c_L)}\frac{\delta(t-x/c_L)}{\delta x} + \frac{dg(t+x/c_L)}{d(t+x/c_L)}\frac{\delta(t+x/c_L)}{\delta x} = \frac{dh(t-x/c_R)}{d(t-x/c_R)}\frac{\delta(t-x/c_R)}{\delta x}
+    \\[1em]
+    -\frac{1}{c_L}\frac{df(t)}{dt} + \frac{1}{c_L}\frac{dg(t)}{dt} = -\frac{1}{c_R}\frac{dh(t)}{dt}
+    \\[1em]
+    -\frac{df(t)}{dt} + \frac{dg(t)}{dt} = -K \frac{dh(t)}{dt}
+\end{gather}
+\end{subequations}
+
+Where $K$, the ratio of acoustic impedance's---in this case between the right and left of the boundary---is defined as:
+\begin{equation}
+    K = \frac{z_L}{z_R}
+\end{equation}
+
+where:
+\begin{equation}
+    z=\rho\cdot c
+    \label{Eq:Acoustic_impedance}
+\end{equation}
+
+Integration of this equation leads to:
+\begin{equation}
+    -f(t) + g(t) = -K h(t) + C
+\end{equation}
+
+where $C$ is an integration constant.
+
+\begin{subequations}
+Finally, solving this equation for the functions $g(t)$ and $h(t)$, the reflected and transmitted waves are found as a function of the incident wave:
+    \begin{gather}
+        g\left(t + \frac{x}{c_L}\right) = \left(\frac{1-K}{1+K}\right) f\left(t + \frac{x}{c_L}\right)
+        \\[1em]
+        h\left(t - \frac{x}{c_R}\right) = \left(\frac{2}{1+K}\right) f\left(t - \frac{x}{c_R}\right)
+    \end{gather}
+    \label{Eq:Reflections}
+\end{subequations}
+
+Suppose that the boundary at $x=L$ is a `rigid boundary', implying that $z_R\rightarrow \infty$, and $K\rightarrow 0$ (for any value of $z_L$), we find that:
+\begin{equation}
+    \lim_{K \to 0} g\left(t + \frac{x}{c_L}\right) = f\left(t + \frac{x}{c_L}\right)
+\end{equation}
+
+Suppose that the boundary at $x=x_f$ is a `free boundary', implying that $z_R\rightarrow 0$, and $K\rightarrow \infty$ (for any value of $z_L$), we find that:
+\begin{equation}
+    \lim_{K \to \infty} g\left(t + \frac{x}{c_L}\right) = -f\left(t + \frac{x}{c_L}\right)
+\end{equation}
+
+When we introduce a new variable:
+
+\begin{equation}
+    \xi' = t - \frac{x_e - x}{c}
+\end{equation}
+
+to `simulate' a second displacement at the boundary, Equation \ref{eq:displacement_distribution} can be elaborated with a single reflection at the rigid boundary:
+
+\begin{equation}
+    u(x,t)=
+\begin{cases}
+    \Psi(\xi) & \text{for $\frac{x}{c} < t \leq \frac{x}{c} + \Delta t_i$}
+    \\[0.5em]
+    \Psi(\xi) + \Psi(\xi') & \text{for $ \frac{x_e}{c} < t \leq \frac{x_e}{c} + \Delta t_i$}
+    \\[0.5em]
+    \Psi(\xi') & \text{for $\frac{x_e}{c} + \Delta t_i < t \leq 2\frac{x_e}{c} + \Delta t_i$}
+    \\[0.5em]
+    0 & \text{for \textit{else}}
+\end{cases}
+\end{equation}
+
+To better visualize the effect of the reflection, we use the boundary condition of a step function presented in Equation \ref{eq:boundary_condition_block}:
+\begin{equation}
+r(t)=
+\begin{cases}
+    \si{1e-6} & \text{for $0 < t \leq \si{1e-9}$}
+    \\[0.5em]
+    0 & \text{for \textit{else}}
+\end{cases}
+\end{equation}
+
+amounting to a unit step, with $\Delta t_i = \SI{1}{\nano\second}$
+
+\begin{figure}[ht]
+    \centering
+    \input{displacement_position_unit_step.tex}
+    \caption{Visualization of the displacement distribution in the bar for every position for longitudinal displacement input $r(t)=\si{1e-6}$ at $x=\SI{0}{\metre}$\\Source: \textsc{matlab}}
+\end{figure}

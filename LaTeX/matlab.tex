@@ -1,0 +1,132 @@
+\begin{lstlisting}[breaklines=true,frame=none]
+ \begin{scriptsize}
+clear all; close all;
+ 
+%% Rod properties
+ 
+E = 1;                      % Elastic modulus (Pa)
+rho = 1;                     % Density (kg/m^3)
+ 
+c = sqrt(E/rho);                % Material wave propulsion speed (m/s)
+ 
+x_b = 0;                        % Rod begin position (m)
+x_e = 1;                        % Rod end position (m)
+x_s = (x_e-x_b)/200;            % Position step (m)c
+ 
+%% Input disturbance properties
+ 
+wave_no = 1;                                % Number of input waves
+wave_length = 1/4;                          % Length of waves (fraction of bar length)
+ 
+wave_time = ((x_e-x_b)/c) * wave_length;      % Time of wave (s)
+
+A = 1E-6;                                   % Wave amplitude (m)
+input_time = wave_no * wave_time;             % Time of input (s)
+ 
+%% Experiment properties
+ 
+reflections = 1;                                        % Amount of reflections
+ 
+t_b = 0;                                                % Experimt begin time (s)
+t_boundary = wave_time + (x_e-x_b)/c;                   % Time at boundary (s)
+t_e = (reflections+1)*((x_e-x_b)/c); %+ input_time;        % Experiment end time (s)
+ 
+t_s = (t_e-t_b)/1000;                                   % Time step (s)
+ 
+%% Construct vectors
+ 
+x = x_b : x_s : x_e;        % Construct position vector
+t = t_b : t_s : t_e;        % Construct time vector
+ 
+%% Solution matrices
+ 
+u = zeros(length(x),length(t));      % Displacement
+eps = zeros(length(x),length(t));    % Strain
+sig = zeros(length(x),length(t));    % Stress
+ 
+%% Incident wave
+ 
+for x_i = 1:length(x)
+for t_i = 1:length(t)
+xi = t(t_i) - x(x_i)/c;
+if t(t_i) > x(x_i)/c && t(t_i) <= input_time + x(x_i)/c
+u(x_i,t_i) = A*(6*(xi/input_time).^5-15*(xi/input_time).^4+10*(xi/input_time).^3);
+eps(x_i,t_i) = A*(6*5*(xi.^4/input_time^5)-15*4*(xi.^3/input_time^4)+10*3*(xi.^2/input_time^3));
+sig(x_i,t_i) = eps(x_i,t_i)*E;
+elseif t(t_i) < input_time + x(x_i)/c
+u(x_i,t_i) = 0;
+eps(x_i,t_i) = 0;
+sig(x_i,t_i) = 0;
+else
+u(x_i,t_i) = A;
+eps(x_i,t_i) = 0;
+sig(x_i,t_i) = 0;
+end
+end
+end
+ 
+%% Reflected wave
+ 
+for x_i = 1:length(x)
+for t_i = 1:length(t)
+eta = t(t_i) + (x(x_i)-2*x_e)/c;
+if t(t_i) > (2*x_e-x(x_i))/c && t(t_i) <= (2*x_e-x(x_i))/c + input_time
+u(x_i,t_i) = u(x_i,t_i) - A*(6*(eta/input_time).^5-15*(eta/input_time).^4+10*(eta/input_time).^3);
+eps(x_i,t_i) = eps(x_i,t_i) + A*(6*5*(eta.^4/input_time^5)-15*4*(eta.^3/input_time^4)+10*3*(eta.^2/input_time^3));
+sig(x_i,t_i) = eps(x_i,t_i)*E;
+elseif t(t_i) < input_time + (2*x_e-x(x_i))/c
+u(x_i,t_i) = u(x_i,t_i);
+eps(x_i,t_i) = eps(x_i,t_i);
+sig(x_i,t_i) = sig(x_i,t_i);
+else
+u(x_i,t_i) = 0;
+eps(x_i,t_i) = 0;
+sig(x_i,t_i) = 0;
+end
+end
+end
+ 
+%% Plot loop
+ 
+u_min = min(min(u));
+u_max = max(max(u));
+eps_min = min(min(eps));
+eps_max = max(max(eps));
+sig_min = min(min(sig));
+sig_max = max(max(sig));
+ 
+ 
+for t_frac = 1/1000:0.001:1
+t_ix = ceil(t_frac*length(t));
+t_plot = t(t_ix);
+plot(x,u(:,t_ix))
+xlim([x_b x_e])
+ylim([-3*A 3*A])
+xlabel('Position [m]')
+ylabel('Displacement [m]')
+pause(0)
+end
+ 
+for t_frac = 1/1000:1/1000:1
+t_ix = ceil(t_frac*length(t));
+t_plot = t(t_ix);
+plot(x,eps(:,t_ix))
+xlim([x_b x_e])
+ylim([eps_min-0.5*(eps_max-eps_min) eps_max+0.5*(eps_max-eps_min)])
+xlabel('Position [m]')
+ylabel('Strain []')
+pause(0)
+end
+ 
+for t_frac = 1/1000:1/1000:1
+t_ix = ceil(t_frac*length(t));
+t_plot = t(t_ix);
+plot(x,sig(:,t_ix))
+xlim([x_b x_e])
+ylim([sig_min-0.5*(sig_max-sig_min) sig_max+0.5*(sig_max-sig_min)])
+xlabel('Position [m]')
+ylabel('Stress [Pa]')
+pause(0)
+end
+\end{scriptsize}
+\end{lstlisting}

@@ -1,0 +1,85 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=100mm,
+height=50mm,
+at={(1.011in,0.642in)},
+scale only axis,
+xmin=0,
+xmax=1,
+xlabel style={font=\color{white!15!black}},
+xlabel={Strain $\epsilon$},
+ymin=0,
+ymax=1,
+ylabel style={font=\color{white!15!black}},
+ylabel={Stress $\sigma$},
+axis background/.style={fill=none},
+legend style={legend cell align=left, align=left, fill=none,draw=none,font=\color{MaterialGrey500}\footnotesize},
+legend pos = north west,
+xtick={1},
+xticklabels={$\epsilon_{max}$},
+ytick={0.5,1},
+yticklabels={$\sigma_{y_B}$,$\sigma_{max}$},
+]
+
+\addplot [color=MaterialGrey900, line width = .2mm]
+  table[row sep=crcr]{%
+0	0\\
+0.1	0.1\\
+0.2	0.2\\
+0.3	0.3\\
+0.4	0.4\\
+0.5	0.5\\
+0.6	0.6\\
+0.7	0.7\\
+0.8	0.8\\
+0.9	0.9\\
+1	1\\
+};
+\addlegendentry{$\bar{E}_A=1$, $\sigma_{y_A}=\infty$ (Elastic)}
+
+\addplot [color=MaterialGrey900, line width = .2mm, dashed]
+  table[row sep=crcr]{%
+0	0\\
+0.1	0.1\\
+0.2	0.2\\
+0.3	0.3\\
+0.4	0.4\\
+0.5	0.5\\
+0.6	0.5\\
+0.7	0.5\\
+0.8	0.5\\
+0.9	0.5\\
+1	0.5\\
+};
+\addlegendentry{$\bar{E}_B=1$, $\sigma_{y_B}<\sigma_{max}$ (Perfectly plastic)}
+
+%\addplot [color=MaterialIndigoA400, line width = .2mm]
+%  table[row sep=crcr]{%
+%0	0\\
+%0.1	0.1\\
+%0.2	0.2\\
+%0.3	0.3\\
+%0.4	0.4\\
+%0.5	0.5\\
+%0.6	0.525\\
+%0.7	0.55\\
+%0.8	0.575\\
+%0.9	0.6\\
+%1	0.625\\
+%};
+%\addlegendentry{$\bar{E}_{C_1}=1$, $\bar{E}_{C_2}=0.25$, $\sigma_{y_C}=\sigma_{y_B}$}
+
+\end{axis}
+\end{tikzpicture}%
+
+\caption{Strain-to-stress curves for materials with elastic and perfectly plastic behaviour\\Source: \textsc{matlab}}
