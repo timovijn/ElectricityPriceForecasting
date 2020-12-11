@@ -138,7 +138,7 @@ for y in years:
     df_group['Date'] = pd.to_datetime(df_group['Date'], format='(%Y, %m)')
 
     df_group2 = df.drop(['Instrumentcode', 'Contracttype', 'Side'], axis=1).groupby([(df['Date'].dt.year), (df['Date'].dt.month), (df['Date'].dt.day)]).mean()
-    df_group2['Date'] = df_group2.index
+    df_group2['Date'] = df_group2.index 
     df_group2['Date'] = pd.to_datetime(df_group2['Date'], format='(%Y, %m, %d)')
 
     df_group3 = df.drop(['Instrumentcode', 'Contracttype', 'Side'], axis=1).groupby([(df['Date'].dt.year), (df['Date'].dt.month), (df['Date'].dt.day), (df['Date'].dt.hour)]).mean()
